@@ -76,8 +76,29 @@ void setup()
     }
 }
 
+bool handshaked = false;
+
+void Handshake(int input){
+    if(input == 'h'){
+        handshaked = true;
+        Serial.write('o');
+    }
+    else{
+        Serial.write(input);
+    }
+}
+
 void loop() 
 {
+    if(!handshaked)
+    {
+        while(Serial.available() == 0);
+        int input = Serial.read();
+        while(Serial.available() == 0);
+        input = Serial.read();
+        Handshake(input);
+        return;
+    }
     int FAM_JOY_1 = 256;
     int FAM_JOY_2 = 0x200;
     //Read input
@@ -97,12 +118,15 @@ void loop()
             if(joy == 1)
             {
                 SetOutput(input, FAM_J1_UP, FAM_J1_MODE);
-                Serial.write("o1");
+                //Serial.write("o1");
             }
             else if(joy == 2)
             {
                 SetOutput(input, FAM_J2_UP, FAM_J2_MODE);
-                Serial.write("o2");
+                //Serial.write("o2");
+            }
+            else if(joy == 'h'){
+                Handshake(input+ 1);
             }
             else
             {

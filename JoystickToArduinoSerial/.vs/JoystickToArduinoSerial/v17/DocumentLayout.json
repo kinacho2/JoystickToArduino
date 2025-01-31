@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Kinacho\\source\\repos\\JoystickToArduinoSerial\\",
+  "WorkspaceRootPath": "C:\\work\\code\\JoystickToArduino\\JoystickToArduinoSerial\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9241823C-D973-4D9F-A23C-2047897B44A1}|JoystickToArduinoSerial\\JoystickToArduinoSerial.csproj|c:\\users\\kinacho\\source\\repos\\joysticktoarduinoserial\\joysticktoarduinoserial\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9241823C-D973-4D9F-A23C-2047897B44A1}|JoystickToArduinoSerial\\JoystickToArduinoSerial.csproj|c:\\work\\code\\joysticktoarduino\\joysticktoarduinoserial\\joysticktoarduinoserial\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9241823C-D973-4D9F-A23C-2047897B44A1}|JoystickToArduinoSerial\\JoystickToArduinoSerial.csproj|solutionrelative:joysticktoarduinoserial\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9241823C-D973-4D9F-A23C-2047897B44A1}|JoystickToArduinoSerial\\JoystickToArduinoSerial.csproj|c:\\users\\kinacho\\source\\repos\\joysticktoarduinoserial\\joysticktoarduinoserial\\joystickinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9241823C-D973-4D9F-A23C-2047897B44A1}|JoystickToArduinoSerial\\JoystickToArduinoSerial.csproj|c:\\work\\code\\joysticktoarduino\\joysticktoarduinoserial\\joysticktoarduinoserial\\joystickinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9241823C-D973-4D9F-A23C-2047897B44A1}|JoystickToArduinoSerial\\JoystickToArduinoSerial.csproj|solutionrelative:joysticktoarduinoserial\\joystickinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -24,11 +24,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Kinacho\\source\\repos\\JoystickToArduinoSerial\\JoystickToArduinoSerial\\Program.cs",
+              "DocumentMoniker": "C:\\work\\code\\JoystickToArduino\\JoystickToArduinoSerial\\JoystickToArduinoSerial\\Program.cs",
               "RelativeDocumentMoniker": "JoystickToArduinoSerial\\Program.cs",
-              "ToolTip": "C:\\Users\\Kinacho\\source\\repos\\JoystickToArduinoSerial\\JoystickToArduinoSerial\\Program.cs",
+              "ToolTip": "C:\\work\\code\\JoystickToArduino\\JoystickToArduinoSerial\\JoystickToArduinoSerial\\Program.cs",
               "RelativeToolTip": "JoystickToArduinoSerial\\Program.cs",
-              "ViewState": "AgIAAEgAAAAAAAAAAAD4v2EAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACMAAAAAAAAAAAApwG8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-29T21:35:23.483Z",
               "IsPinned": true,
@@ -38,15 +38,14 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "JoystickInput.cs",
-              "DocumentMoniker": "C:\\Users\\Kinacho\\source\\repos\\JoystickToArduinoSerial\\JoystickToArduinoSerial\\JoystickInput.cs",
+              "DocumentMoniker": "C:\\work\\code\\JoystickToArduino\\JoystickToArduinoSerial\\JoystickToArduinoSerial\\JoystickInput.cs",
               "RelativeDocumentMoniker": "JoystickToArduinoSerial\\JoystickInput.cs",
-              "ToolTip": "C:\\Users\\Kinacho\\source\\repos\\JoystickToArduinoSerial\\JoystickToArduinoSerial\\JoystickInput.cs",
+              "ToolTip": "C:\\work\\code\\JoystickToArduino\\JoystickToArduinoSerial\\JoystickToArduinoSerial\\JoystickInput.cs",
               "RelativeToolTip": "JoystickToArduinoSerial\\JoystickInput.cs",
               "ViewState": "AgIAAPYAAAAAAAAAAAAhwD0BAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-29T21:49:43.824Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             }
           ]
         }

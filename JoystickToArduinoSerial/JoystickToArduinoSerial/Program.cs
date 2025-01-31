@@ -1,6 +1,7 @@
 ﻿using JoystickToArduinoSerial;
 using SharpDX.DirectInput;
 using SharpDX.XInput;
+using System;
 using System.Diagnostics;
 using System.IO.Ports;
 
@@ -10,7 +11,7 @@ internal class Program
     private static void Main(string[] args)
     {
         //Create serial port
-        var serialReady = CreateSerialPort("COM3", out var serialPort);
+        var serialReady = SerialPortHandShake(out var serialPort);//CreateSerialPort("COM3", out var serialPort);
         var joystickList = GetJoystickInputs();
         byte[] buffer = new byte[2];
 
@@ -84,7 +85,11 @@ internal class Program
             if (serialReady)
             {
                 if (Handshake(serialPort))
+                {
+                    Console.WriteLine($"Port COM{i} handshake SUCCESS");
+
                     return true;
+                }
                 else
                 {
                     Console.WriteLine($"Port COM{i} handshake failed");
@@ -101,14 +106,38 @@ internal class Program
 
     static bool Handshake(SerialPort serialPort)
     {
+        Thread.Sleep(100);
+        serialPort.Write("h");
+        serialPort.Write("h");
+        var stopWatch = Stopwatch.StartNew();
+        while (serialPort.BytesToRead == 0 && stopWatch.ElapsedMilliseconds < 1000) ;
 
+        if(serialPort.BytesToRead > 0)
+        {
+            byte[] buffer = new byte[serialPort.BytesToRead];
+            serialPort.Read(buffer, 0, serialPort.BytesToRead);
+
+            if (buffer[0] == 'o')
+            {
+                return true;
+            }
+            else
+            {
+                Console.WriteLine($"handshake error {(char)buffer[0]}");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Timeout reached");
+        }
+        return false;
     }
 
     static bool CreateSerialPort(string portName, out SerialPort serialPort)
     {
         //SerialPort
         serialPort = new SerialPort();
-        serialPort.PortName = "COM3";
+        serialPort.PortName = portName;
         serialPort.BaudRate = 9600;
         try
         {
