@@ -1,3 +1,8 @@
+#include <SoftwareSerial.h>   // Incluimos la librería  SoftwareSerial  
+SoftwareSerial BT(18,19);    // Definimos los pines RX y TX del Arduino conectados al Bluetooth
+ 
+//#define BT Serial
+
 #define SEGA_J1_UP 2
 #define SEGA_J1_DOWN 3
 #define SEGA_J1_LEFT 4
@@ -17,7 +22,7 @@
 #define FAM_J1_RIGHT 5
 #define FAM_J1_A 6
 #define FAM_J1_B 7
-#define FAM_J1_PAUSE 8
+#define FAM_J1_PAUSE 8 
 #define FAM_J1_MODE 9
 
 #define FAM_J2_UP 10
@@ -36,7 +41,7 @@
 
 void PrintNumber(int n)
 {
-    Serial.write(n + ZEROCHAR);
+    BT.write(n + ZEROCHAR);
 }
 
 void SendBinary(int input, int bitStart, int bitEnd)
@@ -59,14 +64,14 @@ void SetOutput(int input, int from, int to)
       
       digitalWrite(i, state);
   }
-  //Serial.write('\n');
+  //BT.write('\n');
 
 }
 
 void setup() 
 {
     //Setup BT input
-    Serial.begin(9600);
+    BT.begin(9600);
 
     //Setup output for Family
     for(int i = FAM_J1_UP; i <= FAM_J2_MODE; i++)
@@ -81,10 +86,10 @@ bool handshaked = false;
 void Handshake(int input){
     if(input == 'h'){
         handshaked = true;
-        Serial.write('o');
+        BT.write('o');
     }
     else{
-        Serial.write(input);
+        BT.write(input);
     }
 }
 
@@ -92,23 +97,23 @@ void loop()
 {
     if(!handshaked)
     {
-        while(Serial.available() == 0);
-        int input = Serial.read();
-        while(Serial.available() == 0);
-        input = Serial.read();
+        while(BT.available() == 0);
+        int input = BT.read();
+        while(BT.available() == 0);
+        input = BT.read();
         Handshake(input);
         return;
     }
     int FAM_JOY_1 = 256;
     int FAM_JOY_2 = 0x200;
     //Read input
-    if(Serial.available() > 0)
+    if(BT.available() > 0)
     {
-        int input = Serial.read();
+        int input = BT.read();
         
-        while(Serial.available() == 0);
+        while(BT.available() == 0);
 
-        int joy = Serial.read();
+        int joy = BT.read();
 
         if(input != 0)
         {
@@ -118,24 +123,24 @@ void loop()
             if(joy == 1)
             {
                 SetOutput(input, FAM_J1_UP, FAM_J1_MODE);
-                //Serial.write("o1");
+                //BT.write("o1");
             }
             else if(joy == 2)
             {
                 SetOutput(input, FAM_J2_UP, FAM_J2_MODE);
-                //Serial.write("o2");
+                //BT.write("o2");
             }
             else if(joy == 'h'){
                 Handshake(input+ 1);
             }
             else
             {
-                Serial.write("er");
-                Serial.write(joy);
-                while(Serial.available() == 0);
+                BT.write("er");
+                BT.write(joy);
+                while(BT.available() == 0);
                 //clean buffer
-                Serial.read();
-                Serial.write("cl");
+                BT.read();
+                BT.write("cl");
             }
         }
         

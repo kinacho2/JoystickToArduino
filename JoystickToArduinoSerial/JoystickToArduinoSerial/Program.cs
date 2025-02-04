@@ -18,49 +18,55 @@ internal class Program
         Stopwatch stopwatch = Stopwatch.StartNew();
         while (true)
         {
-            
-            Thread.Sleep(30);
-
-            stopwatch.Stop();
-
-            int i = 1;
-            foreach (var input in joystickList)
+            try
             {
-                input.Update((float)stopwatch.Elapsed.TotalSeconds);    
-                buffer[0] = (byte)(input.Value + 1);
-                buffer[1] = (byte)i;
-                i++;
-                if(serialReady)
-                    serialPort.Write(buffer, 0, 2);
+                Thread.Sleep(10);
 
-                //PrintBinary(input.Value, 0, 7);
-                //Console.WriteLine();
-            }
-            if (serialReady)
-            {
-                while (serialPort.BytesToRead > 0)
+                stopwatch.Stop();
+
+                int i = 1;
+                foreach (var input in joystickList)
                 {
-                    serialPort.Read(buffer, 0, 2);
-                    var s = "";
-                    s += (char)buffer[0];
-                    s += (char)buffer[1];
-
-                    if (s == "er")
+                    input.Update((float)stopwatch.Elapsed.TotalSeconds);
+                    buffer[0] = (byte)(input.Value + 1);
+                    buffer[1] = (byte)i;
+                    i++;
+                    if (serialReady)
                     {
-                        Console.Write("error: ");
-                        serialPort.Read(buffer, 0, 1);
-                        PrintBinary(buffer[0], 0, 7);
-                        Console.WriteLine();
-                    }
-                    if(s == "cl")
-                    {
-                        Console.WriteLine("cleanning buffer");
+                        serialPort.Write(buffer, 0, 2);
                     }
                 }
+                if (serialReady)
+                {
+                    while (serialPort.BytesToRead > 0)
+                    {
+                        serialPort.Read(buffer, 0, 2);
+                        var s = "";
+                        s += (char)buffer[0];
+                        s += (char)buffer[1];
+
+                        if (s == "er")
+                        {
+                            Console.Write("error: ");
+                            serialPort.Read(buffer, 0, 1);
+                            PrintBinary(buffer[0], 0, 7);
+                            Console.WriteLine();
+                        }
+                        if (s == "cl")
+                        {
+                            Console.WriteLine("cleanning buffer");
+                        }
+                    }
+                }
+
+
+                stopwatch = Stopwatch.StartNew();
+            }
+            catch 
+            {
+                return;
             }
 
-
-            stopwatch = Stopwatch.StartNew();
         }
     }
 
@@ -107,8 +113,17 @@ internal class Program
     static bool Handshake(SerialPort serialPort)
     {
         Thread.Sleep(100);
-        serialPort.Write("h");
-        serialPort.Write("h");
+        serialPort.WriteTimeout = 1000;
+        try
+        {
+            serialPort.Write("h");
+            serialPort.Write("h");
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("Write Timeout reached");
+            return false;
+        }
         var stopWatch = Stopwatch.StartNew();
         while (serialPort.BytesToRead == 0 && stopWatch.ElapsedMilliseconds < 1000) ;
 
@@ -202,7 +217,8 @@ internal class Program
             foreach (var deviceInstance in directInput.GetDevices(DeviceType.Joystick, DeviceEnumerationFlags.AllDevices))
                 joystickGuids.Add(deviceInstance.InstanceGuid);
 
-        // If Joystick not found, throws an error
+        // If Joystick not found, throws an error -
+
         if (joystickGuids.Count == 0)
         {
             Console.WriteLine("No joystick found.");
@@ -225,8 +241,6 @@ internal class Program
             JoystickInput input = new JoystickInput(joystick);
 
             list.Add(input);
-
         }
     }
-
 }

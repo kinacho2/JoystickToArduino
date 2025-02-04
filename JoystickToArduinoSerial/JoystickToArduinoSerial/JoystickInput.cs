@@ -13,8 +13,9 @@ namespace JoystickToArduinoSerial
         B = 5,
         PAUSE = 6, 
         MODE = 7,
-        X = 8, 
-        Y = 9,
+        MODE_ALT = 8,
+        X = 9, 
+        Y = 10,
         COUNT
     }
 
@@ -61,11 +62,11 @@ namespace JoystickToArduinoSerial
             Pause = new ButtonInput(GamepadButtonFlags.Start, JoystickIds.PAUSE);
             Mode = new ButtonInput(GamepadButtonFlags.Back, JoystickIds.MODE);
 
-            Up = new StickInput(GamepadButtonFlags.LeftThumb, JoystickIds.UP, true);
-            Down = new StickInput(GamepadButtonFlags.LeftThumb, JoystickIds.DOWN, false);
+            Up = new StickInput(GamepadButtonFlags.LeftThumb, JoystickIds.UP, false);
+            Down = new StickInput(GamepadButtonFlags.LeftThumb, JoystickIds.DOWN, true);
 
-            Right = new StickInput(GamepadButtonFlags.LeftThumb, JoystickIds.RIGHT, true);
-            Left = new StickInput(GamepadButtonFlags.LeftThumb, JoystickIds.LEFT, false);
+            Right = new StickInput(GamepadButtonFlags.LeftThumb, JoystickIds.RIGHT, false);
+            Left = new StickInput(GamepadButtonFlags.LeftThumb, JoystickIds.LEFT, true);
 
             //LeftThumbY: 32767 -32768, 
             //LeftThumbX: 
@@ -248,6 +249,7 @@ namespace JoystickToArduinoSerial
 
         ButtonInput Pause;
         ButtonInput Mode;
+        ButtonInput ModeAlt;
 
         Dictionary<JoystickOffset, List<ButtonInput>> buttons;
 
@@ -269,11 +271,12 @@ namespace JoystickToArduinoSerial
 
             A = new ButtonInput(JoystickOffset.Buttons14, JoystickIds.A);
             B = new ButtonInput(JoystickOffset.Buttons15, JoystickIds.B);
-            X = new TurboButtonInput(JoystickOffset.Buttons13, JoystickIds.A, 5);
-            Y = new TurboButtonInput(JoystickOffset.Buttons12, JoystickIds.B, 5);
+            X = new TurboButtonInput(JoystickOffset.Buttons13, JoystickIds.A, 10);
+            Y = new TurboButtonInput(JoystickOffset.Buttons12, JoystickIds.B, 10);
 
             Pause = new ButtonInput(JoystickOffset.Buttons3, JoystickIds.PAUSE);
             Mode = new ButtonInput(JoystickOffset.Buttons0, JoystickIds.MODE);
+            ModeAlt = new ButtonInput(JoystickOffset.Buttons11, JoystickIds.MODE);
 
             this.buttons = new Dictionary<JoystickOffset, List<ButtonInput>>();
 
@@ -286,6 +289,7 @@ namespace JoystickToArduinoSerial
             buttons[(int)JoystickIds.B] = B;
             buttons[(int)JoystickIds.PAUSE] = Pause;
             buttons[(int)JoystickIds.MODE] = Mode;
+            buttons[(int)JoystickIds.MODE_ALT] = ModeAlt;
             buttons[(int)JoystickIds.X] = X;
             buttons[(int)JoystickIds.Y] = Y;
 
