@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO.Ports;
 
 namespace JoystickToArduinoSerial.Utils
 {
@@ -8,6 +9,11 @@ namespace JoystickToArduinoSerial.Utils
         {
             //Create serial port
             var serialReady = SerialPortUtils.SerialPortHandShake(out var serialPort);//CreateSerialPort("COM3", out var serialPort);
+            if (!debug && !serialReady)
+            {
+                Console.WriteLine("Error getting serial port");
+            }
+            
             var joystickList = JoystickUtils.GetJoystickInputs(debug);
             byte[] buffer = new byte[2];
             Stopwatch stopwatch = Stopwatch.StartNew();
@@ -54,16 +60,37 @@ namespace JoystickToArduinoSerial.Utils
                             }
                         }
                     }
+                    else if(!debug)
+                    {
+                        serialPort.Close();
+                        ReconnectSerial(out serialReady, out serialPort);
+                    }
 
 
                     stopwatch = Stopwatch.StartNew();
                 }
                 catch
                 {
-                    return;
+                    serialPort.Close();
+                    ReconnectSerial(out serialReady, out serialPort);
                 }
 
             }
+        }
+
+        static void ReconnectSerial(out bool serialReady, out SerialPort serialPort)
+        {
+
+            serialPort = default;
+            serialReady = false;
+            
+            while (!serialReady)
+            {
+                Console.WriteLine("Serial port miss, trying to connect");
+                serialReady = SerialPortUtils.SerialPortHandShake(out serialPort);
+                Thread.Sleep(1000);
+            }
+
         }
 
         private static void PrintBinary(int input, int bitStart, int bitEnd)

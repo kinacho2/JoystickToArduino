@@ -87,6 +87,10 @@ namespace JoystickToArduinoSerial.Utils
                 serialPort.Open();
                 return true;
             }
+            catch (UnauthorizedAccessException ex)
+            {
+                Console.WriteLine("CreateSerialPort ERROR: " + ex.Message);
+            }
             catch (Exception e)
             {
 
