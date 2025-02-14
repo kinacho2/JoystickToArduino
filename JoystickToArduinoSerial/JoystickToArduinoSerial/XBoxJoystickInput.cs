@@ -38,8 +38,8 @@ namespace JoystickToArduinoSerial
             Pause = new XButtonInput(GamepadButtonFlags.Start, JoystickIds.PAUSE);
             Mode = new XButtonInput(GamepadButtonFlags.Back, JoystickIds.MODE);
 
-            Up = new XStickInput(GamepadButtonFlags.LeftThumb, JoystickIds.UP, false);
-            Down = new XStickInput(GamepadButtonFlags.LeftThumb, JoystickIds.DOWN, true);
+            Up = new XStickInput(GamepadButtonFlags.LeftThumb, JoystickIds.UP, true);
+            Down = new XStickInput(GamepadButtonFlags.LeftThumb, JoystickIds.DOWN, false);
 
             Right = new XStickInput(GamepadButtonFlags.LeftThumb, JoystickIds.RIGHT, false);
             Left = new XStickInput(GamepadButtonFlags.LeftThumb, JoystickIds.LEFT, true);

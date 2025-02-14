@@ -62,7 +62,8 @@ namespace JoystickToArduinoSerial.Utils
                     }
                     else if(!debug)
                     {
-                        serialPort.Close();
+                        if(serialPort != null)
+                            serialPort.Close();
                         ReconnectSerial(out serialReady, out serialPort);
                     }
 
