@@ -1,4 +1,5 @@
-﻿using SharpDX.DirectInput;
+﻿using JoystickToArduinoSerial.Utils;
+using SharpDX.DirectInput;
 
 namespace JoystickToArduinoSerial
 {
@@ -7,8 +8,8 @@ namespace JoystickToArduinoSerial
         public bool DebugMode { get; set; }
         ButtonInput Up;
         ButtonInput Down;
-        ButtonInput Left;
         ButtonInput Right;
+        ButtonInput Left;
 
         ButtonInput A;
         ButtonInput B;
@@ -34,8 +35,8 @@ namespace JoystickToArduinoSerial
 
             Up = new StickInput(JoystickOffset.Y, JoystickIds.UP, true);
             Down = new StickInput(JoystickOffset.Y, JoystickIds.DOWN, false);
-            Left = new StickInput(JoystickOffset.X, JoystickIds.LEFT, true);
-            Right = new StickInput(JoystickOffset.X, JoystickIds.RIGHT, false);
+            Right = new StickInput(JoystickOffset.X, JoystickIds.RIGHT, true);
+            Left = new StickInput(JoystickOffset.X, JoystickIds.LEFT, false);
 
             A = new ButtonInput(JoystickOffset.Buttons14, JoystickIds.A);
             B = new ButtonInput(JoystickOffset.Buttons15, JoystickIds.B);
@@ -51,8 +52,8 @@ namespace JoystickToArduinoSerial
             var buttons = new ButtonInput[(int)JoystickIds.COUNT];
             buttons[(int)JoystickIds.UP] = Up;
             buttons[(int)JoystickIds.DOWN] = Down;
-            buttons[(int)JoystickIds.LEFT] = Left;
             buttons[(int)JoystickIds.RIGHT] = Right;
+            buttons[(int)JoystickIds.LEFT] = Left;
             buttons[(int)JoystickIds.A] = A;
             buttons[(int)JoystickIds.B] = B;
             buttons[(int)JoystickIds.PAUSE] = Pause;
@@ -108,5 +109,7 @@ namespace JoystickToArduinoSerial
                 }
             }
         }
+
+        public string[] Symbols => JoystickSymbols.GENERIC;
     }
 }

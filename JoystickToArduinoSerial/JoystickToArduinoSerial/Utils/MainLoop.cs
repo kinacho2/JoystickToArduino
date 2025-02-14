@@ -7,15 +7,15 @@ namespace JoystickToArduinoSerial.Utils
     {
         public static void Run(bool debug = false)
         {
+            var joystickList = JoystickUtils.GetJoystickInputs(debug);
             //Create serial port
             var serialReady = SerialPortUtils.SerialPortHandShake(out var serialPort);//CreateSerialPort("COM3", out var serialPort);
             if (!debug && !serialReady)
             {
                 Console.WriteLine("Error getting serial port");
             }
-            
-            var joystickList = JoystickUtils.GetJoystickInputs(debug);
             byte[] buffer = new byte[2];
+
             Stopwatch stopwatch = Stopwatch.StartNew();
 
             while (true)

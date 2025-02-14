@@ -1,4 +1,5 @@
-﻿using SharpDX.XInput;
+﻿using JoystickToArduinoSerial.Utils;
+using SharpDX.XInput;
 
 namespace JoystickToArduinoSerial
 {
@@ -13,8 +14,8 @@ namespace JoystickToArduinoSerial
 
         XStickInput Up;
         XStickInput Down;
-        XStickInput Left;
         XStickInput Right;
+        XStickInput Left;
 
         XButtonInput A;
         XButtonInput B;
@@ -23,6 +24,7 @@ namespace JoystickToArduinoSerial
 
         XButtonInput Pause;
         XButtonInput Mode;
+        XButtonInput ModeAlt;
 
         List<XButtonInput> buttons = new();
         List<XStickInput> xButtons = new();
@@ -37,12 +39,14 @@ namespace JoystickToArduinoSerial
             Y = new XTurboButtonInput(GamepadButtonFlags.Y, JoystickIds.B, 10);
             Pause = new XButtonInput(GamepadButtonFlags.Start, JoystickIds.PAUSE);
             Mode = new XButtonInput(GamepadButtonFlags.Back, JoystickIds.MODE);
+            ModeAlt = new XButtonInput(GamepadButtonFlags.RightShoulder, JoystickIds.MODE);
+            
 
             Up = new XStickInput(GamepadButtonFlags.LeftThumb, JoystickIds.UP, true);
             Down = new XStickInput(GamepadButtonFlags.LeftThumb, JoystickIds.DOWN, false);
 
-            Right = new XStickInput(GamepadButtonFlags.LeftThumb, JoystickIds.RIGHT, false);
-            Left = new XStickInput(GamepadButtonFlags.LeftThumb, JoystickIds.LEFT, true);
+            Left = new XStickInput(GamepadButtonFlags.LeftThumb, JoystickIds.LEFT, false);
+            Right = new XStickInput(GamepadButtonFlags.LeftThumb, JoystickIds.RIGHT, true);
 
             //LeftThumbY: 32767 -32768, 
             //LeftThumbX: 
@@ -52,11 +56,12 @@ namespace JoystickToArduinoSerial
             buttons.Add(Y);
             buttons.Add(Mode);
             buttons.Add(Pause);
+            buttons.Add(ModeAlt);
 
             yButtons.Add(Up);
             yButtons.Add(Down);
-            xButtons.Add(Left);
             xButtons.Add(Right);
+            xButtons.Add(Left);
 
             this.controller = controller;
             prevState = controller.GetState();
@@ -98,6 +103,8 @@ namespace JoystickToArduinoSerial
             }
 
         }
+
+        public string[] Symbols => JoystickSymbols.XBOX;
 
     }
 }
