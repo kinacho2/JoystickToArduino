@@ -4,6 +4,6 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        MainLoop.Run();
+        MainLoop.Run(debug: false);
     }
 }

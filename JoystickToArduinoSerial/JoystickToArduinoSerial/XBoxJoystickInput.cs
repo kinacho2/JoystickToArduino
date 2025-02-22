@@ -1,5 +1,6 @@
 ﻿using JoystickToArduinoSerial.Utils;
 using SharpDX.XInput;
+using System.Numerics;
 
 namespace JoystickToArduinoSerial
 {
@@ -35,8 +36,8 @@ namespace JoystickToArduinoSerial
         {
             A = new XButtonInput(GamepadButtonFlags.A, JoystickIds.A);
             B = new XButtonInput(GamepadButtonFlags.X, JoystickIds.B);
-            X = new XTurboButtonInput(GamepadButtonFlags.B, JoystickIds.A, 10);
-            Y = new XTurboButtonInput(GamepadButtonFlags.Y, JoystickIds.B, 10);
+            X = new XTurboButtonInput(GamepadButtonFlags.B, JoystickIds.A, 16);
+            Y = new XTurboButtonInput(GamepadButtonFlags.Y, JoystickIds.B, 16);
             Pause = new XButtonInput(GamepadButtonFlags.Start, JoystickIds.PAUSE);
             Mode = new XButtonInput(GamepadButtonFlags.Back, JoystickIds.MODE);
             ModeAlt = new XButtonInput(GamepadButtonFlags.RightShoulder, JoystickIds.MODE);
@@ -86,16 +87,22 @@ namespace JoystickToArduinoSerial
                     value |= button.Value;
                 }
 
+                Vector2 stick = new Vector2((float)state.Gamepad.LeftThumbX / (float)short.MaxValue, (float)state.Gamepad.LeftThumbY / (float)short.MaxValue);
+                if(stick.LengthSquared() > 1)
+                {
+                    stick = stick / stick.Length();
+                }
+
                 foreach (var button in xButtons)
                 {
-                    button.SetState(state.Gamepad.LeftThumbX);
+                    button.SetState(stick.X);
                     button.Update(deltaTime);
                     value |= button.Value;
                 }
 
                 foreach (var button in yButtons)
                 {
-                    button.SetState(state.Gamepad.LeftThumbY);
+                    button.SetState(stick.Y);
                     button.Update(deltaTime);
                     value |= button.Value;
                 }
