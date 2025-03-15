@@ -13,5 +13,6 @@ public enum JoystickIds
     MODE_ALT = 8,
     X = 9,
     Y = 10,
+    STICK_CENTER = 11,
     COUNT
 }

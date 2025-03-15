@@ -5,7 +5,7 @@ namespace JoystickToArduinoSerial.Utils
 {
     public static class MainLoop
     {
-        public static void Run(bool debug = false)
+        public static void Run(bool debug = false, bool debugSerialPort = false)
         {
             var joystickList = JoystickUtils.GetJoystickInputs(debug);
             //Create serial port
@@ -35,6 +35,12 @@ namespace JoystickToArduinoSerial.Utils
                         i++;
                         if (serialReady)
                         {
+                            if (debugSerialPort)
+                            {
+                                Console.Write($"buffer: [");
+                                PrintBinary(buffer[0] - 1, 0, 7);
+                                Console.WriteLine($"]");
+                            }
                             serialPort.Write(buffer, 0, 2);
                         }
                     }
